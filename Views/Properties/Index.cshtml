@@ -1,0 +1,139 @@
+﻿@model My_Rent.Models.PropertyCategoryViewModel
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">List of properties</h1>
+
+<p class="ml-4">
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Properties" asp-action="Index" method="get" class="m-4">
+    <div class="form-group form-inline">
+
+        <select class="form-control" asp-for="PropertyCategory" asp-items="Model.Categories">
+            <option value="">All</option>
+        </select>
+
+        <input class="form-control m-2" placeholder="Title" type="text" asp-for="SearchString">
+        <input class="btn btn-primary" type="submit" value="Filter" />
+    </div>
+</form>
+<table class=" col-10 table-hover m-4">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].PropertyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].Owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].PricePerNight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].MaxCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].NumOfBedrooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].NumOfBathrooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].ShortDescription)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].HasPool)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].HasWiFi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].HasParking)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].IsAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Properties[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Properties)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PropertyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PricePerNight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxCapacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumOfBedrooms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumOfBathrooms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasPool)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasWiFi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasParking)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAvailable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+
+                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                        <a class="btn btn-primary m-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-primary m-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger m-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+﻿@model My_Rent.Views.Models.PropertyViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center">Details</h1>
+
+<div class="m-4">
+    <div class="btn-group">
+        <a class="btn btn-primary m-2" asp-action="Index">Back to List</a>
+        <a class="btn btn-primary m-2" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    </div>
+
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PropertyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PropertyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PricePerNight)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PricePerNight)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaxCapacity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaxCapacity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumOfBedrooms)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumOfBedrooms)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumOfBathrooms)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumOfBathrooms)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ShortDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LongtDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LongtDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HasPool)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HasPool)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HasWiFi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HasWiFi)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HasParking)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HasParking)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageThumbnailUrl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageThumbnailUrl)
+        </dd>
+        <br />
+        <img src=" @{ @Model.ImageUrl}" class="m-4" alt="Responsive image">
+        <!--     <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.ImageUrl)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.ImageUrl)
+    </dd>   -->
+
+    </dl>
+</div>

@@ -1,0 +1,111 @@
+﻿@model My_Rent.Views.Models.UpdatePropertyViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-center">Edit</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="PropertyName" class="control-label"></label>
+                <input asp-for="PropertyName" class="form-control" />
+                <span asp-validation-for="PropertyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Owner" class="control-label"></label>
+                <input asp-for="Owner" class="form-control" />
+                <span asp-validation-for="Owner" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePerNight" class="control-label"></label>
+                <input asp-for="PricePerNight" class="form-control" />
+                <span asp-validation-for="PricePerNight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxCapacity" class="control-label"></label>
+                <input asp-for="MaxCapacity" class="form-control" />
+                <span asp-validation-for="MaxCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumOfBedrooms" class="control-label"></label>
+                <input asp-for="NumOfBedrooms" class="form-control" />
+                <span asp-validation-for="NumOfBedrooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumOfBathrooms" class="control-label"></label>
+                <input asp-for="NumOfBathrooms" class="form-control" />
+                <span asp-validation-for="NumOfBathrooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LongtDescription" class="control-label"></label>
+                <input asp-for="LongtDescription" class="form-control" />
+                <span asp-validation-for="LongtDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasPool" /> @Html.DisplayNameFor(model => model.HasPool)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasWiFi" /> @Html.DisplayNameFor(model => model.HasWiFi)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasParking" /> @Html.DisplayNameFor(model => model.HasParking)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageThumbnailUrl" class="control-label"></label>
+                <input asp-for="ImageThumbnailUrl" class="form-control" />
+                <span asp-validation-for="ImageThumbnailUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAvailable" /> @Html.DisplayNameFor(model => model.IsAvailable)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="btn-group">
+                    <a class="btn btn-primary m-2" asp-action="Index">Back to List</a>
+                    <input type="submit" value="Save" class="btn btn-primary m-2" />
+                </div>
+                </div>
+        </form>
+    </div>
+</div>
+
+<div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
