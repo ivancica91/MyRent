@@ -5,7 +5,9 @@ using My_Rent.Models;
 using My_Rent.Service.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace My_Rent.Service
 {
@@ -26,17 +28,24 @@ namespace My_Rent.Service
         {
             var property = await this.context.Property.FindAsync(id);
 
-            return this.mapper.Map<PropertyDto>(property);  // otkud on sad tu sta zove? Trazi Id, ako ga nade, vraca PropertyDto, i sta onda?
+            return this.mapper.Map<PropertyDto>(property);  
         }
 
-        public async Task<List<PropertyDto>> GetListAsync(string name, string category)
+        public async Task<List<PropertyDto>> GetListAsync(string searchString, string propertyCategory)
         {
+
+
+
+
+
             var properties = await this.context.Property
-                 .WhereIf(string.IsNullOrEmpty(name), s => s.PropertyName.StartsWith(name)) // ako je null, vraca sve, a ako smo upisali string, vraca sto smo trazili?
-                 .WhereIf(string.IsNullOrEmpty(category), s => s.Category.Equals(category))
+                 .WhereIf(string.IsNullOrEmpty(searchString), s => s.PropertyName.Contains(searchString)) 
+                 .WhereIf(string.IsNullOrEmpty(propertyCategory), s => s.Category.Equals(propertyCategory))
                  .ToListAsync();
 
             return this.mapper.Map<List<PropertyDto>>(properties);
+
+
         }
 
         public async Task<PropertyDto> CreateAsync(CreatePropertyDto dto)

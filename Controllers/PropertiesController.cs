@@ -35,34 +35,39 @@ namespace My_Rent.Controllers
         // GET: Properties
         public async Task<IActionResult> Index(string propertyCategory, string searchString)
         {
-            // Use LINQ to get list of categories.
-            IQueryable<string> categoryQuery = from p in _context.Property
-                                               orderby p.Category
-                                               select p.Category;
+            var properties = await this._propertyService.GetListAsync(propertyCategory, searchString);
+            var x = this._mapper.Map<List<PropertyDto>, PropertyCategoryViewModel>(properties);
+            return this.View(x);
 
-            
-            var properties = from p in _context.Property
-                             select p;
-            
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                properties = properties.Where(s => s.PropertyName.Contains(searchString));
-            }
+            //// Use LINQ to get list of categories.
+            //IQueryable<string> categoryQuery = from p in _context.Property
+            //                                   orderby p.Category
+            //                                   select p.Category;
 
-            if (!string.IsNullOrEmpty(propertyCategory))
-            {
-                properties = properties.Where(x => x.Category == propertyCategory);
-            }
 
-            var propertyCategoryVM = new PropertyCategoryViewModel
-            {
-                Categories = new SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Properties = await properties.ToListAsync()
-            };
-       
+            //var properties = from p in _context.Property
+            //                 select p;
 
-            return View(propertyCategoryVM);
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    properties = properties.Where(s => s.PropertyName.Contains(searchString));
+            //}
+
+            //if (!string.IsNullOrEmpty(propertyCategory))
+            //{
+            //    properties = properties.Where(x => x.Category == propertyCategory);
+            //}
+
+            //var propertyCategoryVM = new PropertyCategoryViewModel
+            //{
+            //    Categories = new SelectList(await categoryQuery.Distinct().ToListAsync()),
+            //    Properties = await properties.ToListAsync()
+            //};
+
+
+            //return View(propertyCategoryVM);
         }
 
 
@@ -127,30 +132,30 @@ namespace My_Rent.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
 
-            //var property = this._propertyService.GetSingleByIdAsync(id.Value);
-            //var view = this._mapper.Map<UpdatePropertyViewModel>(property);
-            //return View(view);
 
 
-
-
-
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var property = await _context.Property.FindAsync(id);
-
-            if (property == null)
-            {
-                return NotFound();
-            }
-
-            var view = this._mapper.Map<Property, UpdatePropertyViewModel>(property);
-
+            var property = await this._propertyService.GetSingleByIdAsync(id.Value);
+           var x = this._mapper.Map<UpdatePropertyDto>(property);
+            var view = this._mapper.Map<UpdatePropertyDto, UpdatePropertyViewModel>(x);
             return View(view);
+
+
+
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var property = await _context.Property.FindAsync(id);
+
+            //if (property == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var view = this._mapper.Map<Property, UpdatePropertyViewModel>(property);
+
+            //return View(view);
         }
 
         // POST: Properties/Edit/5
@@ -162,49 +167,62 @@ namespace My_Rent.Controllers
             int id,
             UpdatePropertyViewModel model)
         {
-            var property = await this._context.Property.FindAsync(model.Id);
+           var property = this._mapper.Map<PropertyDto>(model);           
+            var x = this._mapper.Map<UpdatePropertyDto>(property);
+            var update = await this._propertyService.UpdateAsync(x);
+            var view = this._mapper.Map<PropertyDto, UpdatePropertyViewModel>(update);
+            return this.RedirectToAction(nameof(Index));
 
-            if (property == null)
-            {
-                return this.NotFound();
-            }
 
-            this._mapper.Map<UpdatePropertyViewModel, Property>(model, property);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(property);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return this.BadRequest();
-                }
+            //var property = await this._context.Property.FindAsync(model.Id);
 
-                return this.RedirectToAction(nameof(Index));
-            }
-            return this.View(@property);
+            //if (property == null)
+            //{
+            //    return this.NotFound();
+            //}
+
+            //this._mapper.Map<UpdatePropertyViewModel, Property>(model, property);
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        _context.Update(property);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        return this.BadRequest();
+            //    }
+
+            //    return this.RedirectToAction(nameof(Index));
+            //}
+            //return this.View(@property);
         }
 
         // GET: Properties/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return this.NotFound();
-            }
+            var dto = await this._propertyService.GetSingleByIdAsync(id.Value);
+            var view = this._mapper.Map<PropertyDto, PropertyViewModel>(dto);
+            return this.View(view);
 
-            var property = await this._context.Property.FindAsync(id);
-            if (property == null)
-            {
-                return this.NotFound();
-            }
 
-            var viewModel = this._mapper.Map<Property, PropertyViewModel>(property);
+            //if (id == null)
+            //{
+            //    return this.NotFound();
+            //}
 
-            return this.View(viewModel);
+            //var property = await this._context.Property.FindAsync(id);
+            //if (property == null)
+            //{
+            //    return this.NotFound();
+            //}
+
+            //var viewModel = this._mapper.Map<Property, PropertyViewModel>(property);
+
+            //return this.View(viewModel);
         }
 
         // POST: Properties/Delete/5
@@ -212,10 +230,13 @@ namespace My_Rent.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var property = await this._context.Property.FindAsync(id);
-            this._context.Property.Remove(property);
-            await _context.SaveChangesAsync();
+            await this._propertyService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
+
+            //var property = await this._context.Property.FindAsync(id);
+            //this._context.Property.Remove(property);
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool PropertyExists(int id)
