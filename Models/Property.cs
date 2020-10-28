@@ -40,11 +40,13 @@ namespace My_Rent.Models
         [Display(Name = "Parking")]
         public bool HasParking { get; set; }
 
-        [Display(Name = "Thumbnail")]
-        public string ImageThumbnailUrl { get; set; }
 
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
+
+        [Display(Name = "Image Thumbnail")]
+        public string ImageThumbnailUrl { get; set; }
+
 
         [Display(Name = "Availability")]
         public bool IsAvailable { get; set; }
