@@ -20,6 +20,16 @@
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Content\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Content\korcula.jpg" />
+    <None Include="wwwroot\Content\pula.jpg" />
+    <None Include="wwwroot\Content\zadar.jpg" />
+  </ItemGroup>
+
 
 
 </Project>

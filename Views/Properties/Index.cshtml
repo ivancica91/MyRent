@@ -22,110 +22,160 @@
         <input class="btn btn-primary" type="submit" value="Filter" />
     </div>
 </form>
-<table class=" col-10 table-hover m-4">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].PropertyName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].Owner)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].PricePerNight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].MaxCapacity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].NumOfBedrooms)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].NumOfBathrooms)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].ShortDescription)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].HasPool)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].HasWiFi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].HasParking)
-            </th>
+<div class="container-fluid">
+    <table class=" col-10 table-hover m-4  mb-5">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].PropertyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].Owner)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].PricePerNight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].MaxCapacity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].NumOfBedrooms)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].NumOfBathrooms)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].ShortDescription)
+                </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].IsAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Properties[0].Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].HasPool)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].HasWiFi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].HasParking)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].IsAvailable)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Properties[0].Category)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Properties)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PropertyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Owner)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        $ @Html.DisplayFor(modelItem => item.PricePerNight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxCapacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumOfBedrooms)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumOfBathrooms)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShortDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HasPool)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HasWiFi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HasParking)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsAvailable)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+
+                            <a class="btn btn-primary m-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-primary m-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a class="btn btn-danger m-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<header>
+    <h2 class="text-center mb-3">myRent List of Properties</h2>
+    <h4 class=" text-center  mb-4">See a list of properties we have for you. Apartments, Hotel Rooms, Villas or luxury bungalow, the choice is yours. </h4>
+</header>
+
+<form  asp-controller="Properties" asp-action="Index" method="get" class="float-md-left ml-4" >
+    <div class="form-group form-inline">
+
+        <select class="form-control" asp-for="PropertyCategory" asp-items="Model.Categories">
+            <option value="">All</option>
+        </select>
+
+        <input class="form-control m-2" placeholder="Title" type="text" asp-for="SearchString">
+        <input class="btn btn-primary" type="submit" value="Filter" />
+    </div>
+</form>
+
+<br />
+<br />
+
+<div class="container" >
+    <div class="row">
         @foreach (var item in Model.Properties)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PropertyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Owner)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PricePerNight)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaxCapacity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumOfBedrooms)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumOfBathrooms)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ShortDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HasPool)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HasWiFi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HasParking)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsAvailable)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-
-                    <div class="btn-group" role="group" aria-label="Basic example">
-
-                        <a class="btn btn-primary m-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a class="btn btn-primary m-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        <a class="btn btn-danger m-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <div class="col-sm-6 mb-4">
+                <div class="card">
+                    <!--    <div class="card m-3 col-5" style="width: 18rem;">   -->
+                    <img class="card-img-top p-1" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="Card image cap" style="max-width: 535px; max-height:300px;">
+                    <div class="card-body">
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.PropertyName)</h4>
+                        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Address)</h6>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.ShortDescription).</p>
+                        <p class="card-text float-right"> $ @Html.DisplayFor(modelItem => item.PricePerNight)</p>
+                        <p>
+                        <p class="card-text  ">
+                            @Html.DisplayFor(modelItem => item.MaxCapacity) <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-people-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                        </p>
+                        </p>
+                        <a href="/Properties/details/@Html.DisplayFor(modelItem => item.Id)" class="btn w-100 p-3 bg-info text-white">Details</a>
                     </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+                </div>
+                </div>
+                }
+            </div>
+        </div>
 
 
 
