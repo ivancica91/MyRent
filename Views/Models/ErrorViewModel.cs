@@ -1,6 +1,4 @@
-using System;
-
-namespace My_Rent.Models
+﻿namespace My_Rent.Models
 {
     public class ErrorViewModel
     {

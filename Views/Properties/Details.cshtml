@@ -16,7 +16,8 @@
 
         <div class="container">
             <div class="container">
-                <dl class="row">
+                
+                <dl class="row ml-4">
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.PropertyName)
                     </dt>
@@ -61,7 +62,7 @@
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.NumOfBathrooms)
-                    </dd>                    
+                    </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.HasPool)
                     </dt>
@@ -92,38 +93,38 @@
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.Category)
                     </dd>
-                    <!--  <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.ImageThumbnailUrl)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.ImageThumbnailUrl)
-                     </div>
-                </dd>   -->
+                </dl>
+
+                
             </div>
 
-            <div id="carousel" class="carousel slide m-3" data-ride="carousel" style="width: 790px; height:500px;">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="@{ @Model.ImageUrl}" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="@{ @Model.ImageThumbnailUrl}" class="d-block w-100" alt="...">
-                    </div>
+            <div class="container">
+                
+                    
+                        <div id="carousel" class="carousel slide m-3" data-ride="carousel" style="max-width: 790px; max-height:450px;">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="@{ @Model.ImageUrl}" class="d-block w-100 img-fluid" alt="..." style="max-width: 790px; max-height:450px;">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="@{ @Model.ImageThumbnailUrl}" class="d-block w-100 img-fluid" alt="..." style="max-width: 790px; max-height:450px;">
+                                </div>
 
+                            </div>
+                        </div>
+
+                        <br />
+                            <div class="row">
+                                <div class="text-center">@Model.LongtDescription</div>
+                            </div>
+                       
+                    
                 </div>
 
-                <br />
-                <div class="card-text">@Model.LongtDescription</div>
 
-                <br />
-                <!-- <img src=" @{ @Model.ImageUrl}" class="m-4" alt="Responsive image">    -->
-                <!--     <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ImageUrl)
-            </dd>   -->
-                </dl>
             </div>
-        </div>
     </div>
+
+    
+        
+    

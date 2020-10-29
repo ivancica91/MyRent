@@ -22,9 +22,9 @@ namespace My_Rent.Service.Models
             this.CreateMap<PropertyDto, UpdatePropertyViewModel>().ReverseMap();
             this.CreateMap<Property, UpdatePropertyViewModel>().ReverseMap();
             this.CreateMap<UpdatePropertyDto, UpdatePropertyViewModel>().ReverseMap();
-            this.CreateMap<List<PropertyDto>, PropertyCategoryViewModel>().ReverseMap();
+            this.CreateMap<List<PropertyDto>, IndexViewModel>().ReverseMap();
             this.CreateMap<PropertyDto, List<PropertyDto>>().ReverseMap();
-            this.CreateMap<PropertyDto, PropertyCategoryViewModel>().ReverseMap();
+            this.CreateMap<PropertyDto, IndexViewModel>().ReverseMap();
             this.CreateMap<Property, List<PropertyDto>>().ReverseMap();
 
         }

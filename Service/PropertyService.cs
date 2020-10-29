@@ -1,20 +1,17 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using My_Rent.Data;
-using My_Rent.Models;
-using My_Rent.Service.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-
-namespace My_Rent.Service
+﻿namespace My_Rent.Service
 {
+    using AutoMapper;
+    using Microsoft.EntityFrameworkCore;
+    using My_Rent.Data;
+    using My_Rent.Models;
+    using My_Rent.Service.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class PropertyService : IPropertyService
     {
-
-        
         private readonly IMapper mapper;
         private readonly MvcPropertyContext context;
 
@@ -28,58 +25,17 @@ namespace My_Rent.Service
         {
             var property = await this.context.Property.FindAsync(id);
 
-            return this.mapper.Map<PropertyDto>(property);  
+            return this.mapper.Map<PropertyDto>(property);
         }
 
         public async Task<List<PropertyDto>> GetListAsync(string searchString, string propertyCategory)
         {
-            // Use LINQ to get list of categories.
-            IQueryable<string> categoryQuery = from p in context.Property
-                                               orderby p.Category
-                                               select p.Category;
+            var properties = await this.context.Property
+                 .WhereIf(!string.IsNullOrEmpty(searchString), s => s.PropertyName.Contains(searchString))
+                 .WhereIf(!string.IsNullOrEmpty(propertyCategory), s => s.Category.Equals(propertyCategory))
+                 .ToListAsync();
 
-
-            var properties = from p in context.Property
-                             select p;
-
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                properties = properties.Where(s => s.PropertyName.Contains(searchString));
-            }
-
-            if (!string.IsNullOrEmpty(propertyCategory))
-            {
-                properties = properties.Where(x => x.Category == propertyCategory);
-            }
-
-
-            var propertyCategoryVM = new PropertyCategoryViewModel
-            {
-                Categories = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await categoryQuery.Distinct().ToListAsync()),
-                Properties = await properties.ToListAsync()
-            };
-            
-            var x = this.mapper.Map<PropertyCategoryViewModel, List< PropertyDto >> (propertyCategoryVM);
-            return x;
-
-
-
-            //return this.mapper.Map<PropertyCategoryViewModel, List<PropertyDto>>(propertyCategoryVM);
-
-            //return View(propertyCategoryVM);
-
-
-
-
-            //var properties = await this.context.Property
-            //     .WhereIf(string.IsNullOrEmpty(searchString), s => s.PropertyName.Contains(searchString)) 
-            //     .WhereIf(string.IsNullOrEmpty(propertyCategory), s => s.Category.Equals(propertyCategory))
-            //     .ToListAsync();
-
-            //return this.mapper.Map<List<PropertyDto>>(properties);
-
-
+            return this.mapper.Map<List<PropertyDto>>(properties);
         }
 
         public async Task<PropertyDto> CreateAsync(CreatePropertyDto dto)
@@ -136,6 +92,11 @@ namespace My_Rent.Service
             }
 
             return property;
+        }
+
+        public async Task<List<string>> GetCategoriesAsync(string? propertyCategory)
+        {
+            return await this.context.Property.WhereIf(!string.IsNullOrWhiteSpace(propertyCategory), r => r.Category == propertyCategory).Select(p => p.Category).Distinct().ToListAsync();
         }
     }
 }
