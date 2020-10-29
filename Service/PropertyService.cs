@@ -33,17 +33,51 @@ namespace My_Rent.Service
 
         public async Task<List<PropertyDto>> GetListAsync(string searchString, string propertyCategory)
         {
+            // Use LINQ to get list of categories.
+            IQueryable<string> categoryQuery = from p in context.Property
+                                               orderby p.Category
+                                               select p.Category;
+
+
+            var properties = from p in context.Property
+                             select p;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                properties = properties.Where(s => s.PropertyName.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(propertyCategory))
+            {
+                properties = properties.Where(x => x.Category == propertyCategory);
+            }
+
+
+            var propertyCategoryVM = new PropertyCategoryViewModel
+            {
+                Categories = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(await categoryQuery.Distinct().ToListAsync()),
+                Properties = await properties.ToListAsync()
+            };
+            
+            var x = this.mapper.Map<PropertyCategoryViewModel, List< PropertyDto >> (propertyCategoryVM);
+            return x;
+
+
+
+            //return this.mapper.Map<PropertyCategoryViewModel, List<PropertyDto>>(propertyCategoryVM);
+
+            //return View(propertyCategoryVM);
 
 
 
 
+            //var properties = await this.context.Property
+            //     .WhereIf(string.IsNullOrEmpty(searchString), s => s.PropertyName.Contains(searchString)) 
+            //     .WhereIf(string.IsNullOrEmpty(propertyCategory), s => s.Category.Equals(propertyCategory))
+            //     .ToListAsync();
 
-            var properties = await this.context.Property
-                 .WhereIf(string.IsNullOrEmpty(searchString), s => s.PropertyName.Contains(searchString)) 
-                 .WhereIf(string.IsNullOrEmpty(propertyCategory), s => s.Category.Equals(propertyCategory))
-                 .ToListAsync();
-
-            return this.mapper.Map<List<PropertyDto>>(properties);
+            //return this.mapper.Map<List<PropertyDto>>(properties);
 
 
         }
